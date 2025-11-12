@@ -38,7 +38,8 @@
 // renderCart();
 
 
-// const cartList = document.getElementById("cart-list");
+// 
+const cartList = document.getElementById("cart-list");
 const clearButton = document.getElementById("clear-cart-btn");
 
 const products = [
