@@ -22,6 +22,13 @@ products.forEach((product) => {
 	productList.appendChild(li);
 });
 
+const addtoButtons=document.querySelectorAll(".add-to-cart-btn")
+// console.log(addtoButtons)
+
+addtoButtons.forEach((button)=>{
+	 button.addEventListener("click",addToCart)
+})
+
 }
 
 
@@ -71,9 +78,6 @@ renderCart();
 
 clearButton.addEventListener("click",clearCart)
 
-const addtoButtons=document.querySelectorAll(".add-to-cart-btn")
-console.log(addtoButtons)
 
-addtoButtons.forEach((button)=>{
-	 button.addEventListener("click",addToCart)
-})
+
+
