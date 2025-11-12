@@ -10,6 +10,14 @@ const products = [
   { id: 5, name: "Product 5", price: 50 },
 ];
 
+if (!sessionStorage.getItem("cart")) {
+  const defaultCart = [
+    { id: 1, name: "Product 1", price: 10 },
+    { id: 5, name: "Product 5", price: 50 },
+  ];
+  sessionStorage.setItem("cart", JSON.stringify(defaultCart));
+}
+
 // ✅ Render all products
 function renderProducts() {
   productList.innerHTML = "";
