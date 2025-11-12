@@ -67,7 +67,7 @@ const cartList=document.getElementById("cart-list");
         // Render cart list
         function renderCart() {
             cartList.innerHTML=""
-            const existingCart=JSON.parse(sessionStorage.getItem("cartData")) || []
+            const existingCart=JSON.parse(sessionStorage.getItem("cart")) || []
             for(let product of existingCart){
                 const li=document.createElement("li");
                 li.innerHTML=`<p>${product.name} </p> <p>$${product.price}</p> <button type="button" id=${product.id} onClick="removeFromCart(event)">Remove</button>`
@@ -84,24 +84,24 @@ const cartList=document.getElementById("cart-list");
         // Add item to cart
         function addToCart(e) {
             const cartData=products.filter((object)=>object.id==e.target.dataset.id)
-            const existingCart=JSON.parse(sessionStorage.getItem("cartData")) || []
+            const existingCart=JSON.parse(sessionStorage.getItem("cart")) || []
             existingCart.push(...cartData)
-            sessionStorage.setItem("cartData",JSON.stringify(existingCart))
+            sessionStorage.setItem("cart",JSON.stringify(existingCart))
             //console.log(sessionStorage.getItem("cartData"))
             renderCart()
         }
 
         // Remove item from cart
         function removeFromCart(event) {
-            const existingCart=JSON.parse(sessionStorage.getItem("cartData"))
+            const existingCart=JSON.parse(sessionStorage.getItem("cart"))
             const filterData=existingCart.filter(data=>data.id!=event.target.id)
             event.target.parentNode.remove()
-            sessionStorage.setItem("cartData",JSON.stringify(filterData))
+            sessionStorage.setItem("cart",JSON.stringify(filterData))
         }
 
         // Clear cart
         function clearCart() {
-            sessionStorage.setItem("cartData",JSON.stringify([]))
+            sessionStorage.setItem("cart",JSON.stringify([]))
             renderCart()
         }
 
