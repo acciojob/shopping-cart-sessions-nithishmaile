@@ -28,7 +28,7 @@ products.forEach((product) => {
 // Render cart list
 function renderCart() {
 	cartList.innerHTML=""
-    cart=JSON.parse(sessionStorage.getItem("cart"))
+    cart=JSON.parse(sessionStorage.getItem("cart")) || [];
 	//If the cart is empty
 	for(let product of cart){
 		const li=document.createElement("li");
