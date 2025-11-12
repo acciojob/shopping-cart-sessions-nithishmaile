@@ -22,27 +22,14 @@ products.forEach((product) => {
 	productList.appendChild(li);
 });
 
-const addtoButtons=document.querySelectorAll(".add-to-cart-btn")
-// console.log(addtoButtons)
-
-addtoButtons.forEach((button)=>{
-	 button.addEventListener("click",addToCart)
-})
-
 }
 
 
 // Render cart list
 function renderCart() {
 	cartList.innerHTML=""
-    cart=JSON.parse(sessionStorage.getItem("cart")) || [];
+    cart=JSON.parse(sessionStorage.getItem("cart"))
 	//If the cart is empty
-	if(cart.length === 0){
-		const li = document.createElement("li");
-		li.textContent = "Cart is Empty";
-		cartList.append(li);
-		return;
-	}
 	for(let product of cart){
 		const li=document.createElement("li");
 		li.innerHTML=`<p>${product.name} </p> <p>$${product.price}</p> <button type="button" id=${product.id} onClick="removeFromCart(event)">Remove</button>`
@@ -55,10 +42,10 @@ function renderCart() {
 
 //e.target.dataset.id
 function addToCart(e) {
-	const id = +e.target.dataset.id;
-	const cartData=products.find((object)=>object.id==id)
+	alert("clicked");
+	const cartData=products.filter((object)=>object.id==e.target.dataset.id)
 	const existingCart=JSON.parse(sessionStorage.getItem("cart")) || []
-	existingCart.push(cartData)
+	existingCart.push(...cartData)
 	sessionStorage.setItem("cart",JSON.stringify(existingCart))
 	//console.log(sessionStorage.getItem("cartData"))
 	renderCart()
@@ -66,11 +53,10 @@ function addToCart(e) {
 
 // Remove item from cart
 function removeFromCart(event) {
-	const existingCart=JSON.parse(sessionStorage.getItem("cart")) || [];
+	const existingCart=JSON.parse(sessionStorage.getItem("cart"))
 	const filterData=existingCart.filter(data=>data.id!=event.target.id)
-	// event.target.parentNode.remove()
+	event.target.parentNode.remove()
 	sessionStorage.setItem("cart",JSON.stringify(filterData))
-	renderCart();
 }
 
 // Clear cart
@@ -86,6 +72,10 @@ renderCart();
 
 clearButton.addEventListener("click",clearCart)
 
+const addtoButtons=document.querySelectorAll(".add-to-cart-btn")
+console.log(addtoButtons)
 
-
+addtoButtons.forEach((button)=>{
+	 button.addEventListener("click",addToCart)
+})
 
