@@ -1,3 +1,5 @@
+let cart=JSON.parse(sessionStorage.getItem("cart")) ||[]
+
 const cartList=document.getElementById("cart-list");
 const clearButton=document.getElementById("clear-cart-btn")
 const products = [
@@ -19,13 +21,16 @@ products.forEach((product) => {
 	li.innerHTML = `${product.name} - $${product.price} <button type="button" class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>`;
 	productList.appendChild(li);
 });
+
 }
+
 
 // Render cart list
 function renderCart() {
 	cartList.innerHTML=""
-	const existingCart=JSON.parse(sessionStorage.getItem("cart")) || []
-	for(let product of existingCart){
+    cart=JSON.parse(sessionStorage.getItem("cart"))
+	//If the cart is empty
+	for(let product of cart){
 		const li=document.createElement("li");
 		li.innerHTML=`<p>${product.name} </p> <p>$${product.price}</p> <button type="button" id=${product.id} onClick="removeFromCart(event)">Remove</button>`
 		cartList.appendChild(li)
@@ -34,6 +39,8 @@ function renderCart() {
 
 
 // Add item to cart
+
+//e.target.dataset.id
 function addToCart(e) {
 	const cartData=products.filter((object)=>object.id==e.target.dataset.id)
 	const existingCart=JSON.parse(sessionStorage.getItem("cart")) || []
@@ -65,6 +72,7 @@ renderCart();
 clearButton.addEventListener("click",clearCart)
 
 const addtoButtons=document.querySelectorAll(".add-to-cart-btn")
+console.log(addtoButtons)
 
 addtoButtons.forEach((button)=>{
 	 button.addEventListener("click",addToCart)
